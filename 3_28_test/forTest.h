@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 
 #include <random>
@@ -11,7 +12,7 @@ void randomMachine(vector<int>& v)
     uniform_int_distribution<> dis(-100, 100);
 
     v.resize(10);
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < 20; i++)
     {
         v[i] = (dis(gen));
     }
