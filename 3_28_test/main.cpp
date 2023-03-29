@@ -9,14 +9,15 @@ int main()
     {
         vector<int> v;
         randomMachine(v);
-        //SelectSort(v);
+        SelectSort(v);
         //BubbleSort(v);
-        InsertSort(v);
+        //InsertSort(v);
         for(auto i : v)
         {
             cout << i << " ";
         }
         cout << endl;
+        BSNearLeft(v, 2);
     }
     return 0;
 }
