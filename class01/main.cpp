@@ -17,7 +17,7 @@ int main()
             cout << i << " ";
         }
         cout << endl;
-        BSNearLeft(v, 2);
+        //BSNearLeft(v, 2);
     }
     return 0;
 }
