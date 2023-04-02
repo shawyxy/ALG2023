@@ -21,11 +21,13 @@ bool isRight(vector<int> arr, int index) {
     }
     return arr[index] < arr[index - 1] && arr[index] < arr[index + 1];
 }
-vector<int> generateRandomArray(int maxSize, int maxValue) {
+vector<int> generateRandomArray(int maxSize, int maxValue) 
+{
     srand((unsigned)time(NULL));
     vector<int> arr(rand() % maxSize + 1);
-    arr[0] = rand() % maxValue - rand() % maxValue;
-    for (int i = 1; i < arr.size(); i++) {
+    arr[0] =   rand() % maxValue - rand() % maxValue;
+    for (int i = 1; i < arr.size(); i++) 
+    {
         do {
             arr[i] = rand() % maxValue - rand() % maxValue;
         } while (arr[i] == arr[i - 1]);
