@@ -94,13 +94,14 @@ void getRightOne(const int num)
 // 3  0011
 // 3  0011
 // 4  0100
-//    0133
+//---------
+//总  0133
 // %3 0100
-void kmNumFindK(vector<int>& v, int k, int m)
+int kmNumFindK(vector<int>& v)
 {
 	int size = v.size();
 	vector<int> sum = { 0 }; // 记录每一个位置的总比特位之和
-	sum.resize(32);
+	sum.resize(33);
 	for(int i = 0; i < size; i++) // 遍历数组中的每一个数
 	{
 		for(int j = 1; j <= 31; j++) // 累加
@@ -109,12 +110,15 @@ void kmNumFindK(vector<int>& v, int k, int m)
 				sum[j]++; 
 		}
 	}
-	// 对1-31比特位，每个位置的和模3，剩下的就是只出现1次的
-	// 同时将剩下的那1位
-	for(int i = 1; i <= 31; i++)
+	// 对1-32比特位，每个位置的和模3，剩下的就是只出现1次的
+	// 同时将剩下的那1位放在返回值对应位置的比特位上
+	int ret = 0;
+	for(int i = 0; i < 32; i++)
 	{
-		sum[i] %= 3;
+		if (sum[i] %= 3)
+			ret |= (1 << i);
 	}
+	return ret;
 }
 int main()
 {
@@ -130,47 +134,11 @@ int main()
 
 	// EvenTimesOddTimes2(v2);
 
-	getRightOne(1231312);
-	getRightOne(88);
-	getRightOne(1);
+	// getRightOne(1231312);
+	// getRightOne(88);
+	// getRightOne(1);
 
+	vector<int> v{3, 3, 3, 4};
+	cout << kmNumFindK(v) << endl;
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
