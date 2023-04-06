@@ -1,4 +1,4 @@
-main: main.cpp 
+main: GetArrayMax.cpp 
 	g++ -o $@ $^ -std=c++11
 .PHONY:clean
 clean:
