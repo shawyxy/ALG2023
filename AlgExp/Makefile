@@ -1,4 +1,4 @@
-main:class01.cpp
+main:alg4.cpp
 	g++ -o $@ $^ -std=c++11
 .PHONY:clean
 clean:
