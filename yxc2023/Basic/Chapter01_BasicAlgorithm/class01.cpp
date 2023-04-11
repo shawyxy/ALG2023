@@ -40,7 +40,7 @@ void QuitSortTest(vector<int>& arr, int L, int R)
 	}
 	// 跳出循环，此时i==j，而且后面递归不用管已经被ij扫描过的元素(画图)
 	// 左右递归
-	QuitSortTest(arr, L, i), QuitSortTest(arr, i + 1, R);
+	QuitSortTest(arr, L, j), QuitSortTest(arr, j + 1, R); // 注意j而不是i
 }
 // 归并排序
 void MergeSort(vector<int>& arr, int L, int R)

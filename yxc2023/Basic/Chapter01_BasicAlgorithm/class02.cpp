@@ -39,7 +39,7 @@ vector<int> Sub(vector<int>& A, vector<int> B)
 // 大整数乘法
 vector<int> Multi(vector<int>& A, int b)
 {
-	vector<int> c = { 0 };
+	vector<int> c;
 	int t = 0;
 	for(int i = 0; i < A.size() || t; i++)
 	{
