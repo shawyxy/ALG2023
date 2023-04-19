@@ -24,7 +24,7 @@ void Print(vector<T>& arr)
 void QuitSortTest(vector<int>& arr, int L, int R)
 {
 	// 终止条件
-	if(L == R) return;
+	if(L >= R) return;
 
 	// 确定x
 	int mid = L + ((R - L) >> 1);
@@ -34,7 +34,7 @@ void QuitSortTest(vector<int>& arr, int L, int R)
 	// 缩小指针之间范围
 	while(i < j)
 	{
-		do i++; while(arr[i] <= x);
+		do i++; while(arr[i] < x);
 		do j--; while(arr[j] > x);
 		if(i < j) swap(arr[i], arr[j]); // 如果 i<j，说明这两个元素是一个逆序对
 	}
