@@ -25,7 +25,7 @@ int main()
 		if (s[i] == p[j + 1]) j++;
 		if (j == n)
 		{
-			printf("%d ", i - n);
+			printf("%d ", i - n + 1);
 			j = ne[j];
 		}
 	}
