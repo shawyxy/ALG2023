@@ -1,4 +1,4 @@
-// // 实验4的代码
+// // // 实验4的代码
 // #include <iostream>
 // #include <math.h>
 // using namespace std;
@@ -62,11 +62,10 @@
 
 //     amount = 0;
 // }
-// void BoardTest()
+// void BoardTest(int k)
 // {
-//     cout << "请输入残缺棋盘的规模:2^k,k=";
-//     cin >> k;
-//     cout << "输入棋盘残缺的位置(x,y):";
+//     // cout << "请输入残缺棋盘的规模:2^k,k=";
+//     // cout << "输入棋盘残缺的位置(x,y):";
 //     cin >> dr >> dc;
 //     int size = pow(2, k);
 //     Cover(0, 0, dr - 1, dc - 1, size);
@@ -84,16 +83,18 @@
 // {
 //     while(1)
 //     {
+//         int k = 0;
+//         cin >> k;
 //         if(input == "quit") break;
-//         if(input == "next") BoardTest();
-//         cout << "输入\"quit\"退出, 输入\"next\"继续:";
+//         if(input == "next") BoardTest(k);
+
+//         // cout << "输入\"quit\"退出, 输入\"next\"继续:";
 //         cin >> input;
-//         cout << "--------------------------" << endl;
+//         // cout << "--------------------------" << endl;
 //     }
 
 //     return 0;
 // }
-// 优化版本 递归->非递归
 #include <iostream>
 using namespace std;
 int k, x1, y1, x2, y2;
