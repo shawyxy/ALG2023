@@ -1,141 +1,82 @@
-// // // 实验4的代码
-// #include <iostream>
-// #include <math.h>
-// using namespace std;
-
-// int amount = 0,Board[100][100];
-// string input = "next";
-// int k = 0, dr = 0, dc = 0;
-// void Cover(int tr,int tc,int dr,int dc,int size)
-// {
-//     int s,t;
-//     if(size<2) return;
-//     amount++;
-//     t=amount;
-//     s=size/2;
-//     if(dr<tr+s&&dc<tc+s)// 残缺在左上角
-//     {
-//         // 覆盖中间位置
-//         Board[tr+s-1][tc+s]=t;
-//         Board[tr+s][tc+s-1]=t;
-//         Board[tr+s][tc+s]=t;
-//         Cover(tr,tc,dr,dc,s);// 覆盖左上
-//         Cover(tr,tc+s,tr+s-1,tc+s,s);// 覆盖右上
-//         Cover(tr+s,tc,tr+s,tc+s-1,s);// 覆盖左下
-//         Cover(tr+s,tc+s,tr+s,tc+s,s);// 覆盖右下
-//     }
-//     else if(dr<tr+s&&dc>=tc+s)// 残缺在右上角
-//     {
-//         Board[tr+s-1][tc+s-1]=t;
-//         Board[tr+s][tc+s-1]=t;
-//         Board[tr+s][tc+s]=t;
-//         Cover(tr,tc,tr+s-1,tc+s-1,s);
-//         Cover(tr,tc+s,dr,dc,s);
-//         Cover(tr+s,tc,tr+s,tc+s-1,s);
-//         Cover(tr+s,tc+s,tr+s,tc+s,s);
-//     }
-//     else if(dr>=tr+s&&dc<tc+s)// 残缺在左下角
-//     {
-//         Board[tr+s-1][tc+s-1]=t;
-//         Board[tr+s-1][tc+s]=t;
-//         Board[tr+s][tc+s]=t;
-//         Cover(tr,tc,tr+s-1,tc+s-1,s);
-//         Cover(tr,tc+s,tr+s-1,tc+s,s);
-//         Cover(tr+s,tc,dr,dc,s);
-//         Cover(tr+s,tc+s,tr+s,tc+s,s);
-//     }
-//     else// 残缺在右下角
-//     {
-//         Board[tr+s-1][tc+s-1]=t;
-//         Board[tr+s-1][tc+s]=t;
-//         Board[tr+s][tc+s-1]=t;
-//         Cover(tr,tc,tr+s-1,tc+s-1,s);
-//         Cover(tr,tc+s,tr+s-1,tc+s,s);
-//         Cover(tr+s,tc,tr+s,tc+s-1,s);
-//         Cover(tr+s,tc+s,dr,dc,s);
-//     }
-// }
-// void resetBoard(int size) {
-//     for (int i = 0; i < size; i++)
-//         for (int j = 0; j < size; j++)
-//             Board[i][j] = 0;
-
-//     amount = 0;
-// }
-// void BoardTest(int k)
-// {
-//     // cout << "请输入残缺棋盘的规模:2^k,k=";
-//     // cout << "输入棋盘残缺的位置(x,y):";
-//     cin >> dr >> dc;
-//     int size = pow(2, k);
-//     Cover(0, 0, dr - 1, dc - 1, size);
-//     for (int i = 0; i < size; i++)
-//     {
-//         for (int j = 0; j < size; j++)
-//         {
-//             printf("%5d", Board[i][j]);
-//         }
-//         cout << endl;
-//     }
-//     resetBoard(size);
-// }
-// int main()
-// {
-//     while(1)
-//     {
-//         int k = 0;
-//         cin >> k;
-//         if(input == "quit") break;
-//         if(input == "next") BoardTest(k);
-
-//         // cout << "输入\"quit\"退出, 输入\"next\"继续:";
-//         cin >> input;
-//         // cout << "--------------------------" << endl;
-//     }
-
-//     return 0;
-// }
 #include <iostream>
+#include <vector>
 using namespace std;
-int k, x1, y1, x2, y2;
-int a[1050][1050];
-int cnt = 0;
-void solve(int x, int y, int n)
+
+void fillBoard(vector<vector<int>> &board, int k, int x, int y, int &tile)
 {
-    for (int i = n; i > 1; i /= 2)
+    int x1 = x, y1 = y;
+    if (k == 0) return;
+    int cx = x + (1 << (k - 1)) - 1; // 中心位置横坐标
+    int cy = y + (1 << (k - 1));     // 中心位置纵坐标
+    if (board[x1][y1] == 0 && x1 <= cx && y1 <= cy) // 左边子棋盘的残缺位置在中心位置的左上方
     {
-        cnt++;
-        int mid = i / 2;
-        if (x1 <= x + mid - 1 && y1 <= y + mid - 1)
-        {
-            a[x + mid][y + mid - 1] = a[x + mid][y + mid] = a[x + mid - 1][y + mid] = cnt;
-        }
-        else if (x1 <= x + mid - 1 && y1 >= y + mid)
-        {
-            a[x + mid - 1][y + mid - 1] = a[x + mid][y + mid] = a[x + mid][y + mid - 1] = cnt;
-        }
-        else if (x1 >= x + mid && y1 <= y + mid - 1)
-        {
-            a[x + mid - 1][y + mid - 1] = a[x + mid - 1][y + mid] = a[x + mid][y + mid] = cnt;
-        }
-        else
-        {
-            a[x + mid - 1][y + mid - 1] = a[x + mid][y + mid] = a[x + mid][y + mid - 1] = cnt;
-        }
+        board[cx][cy] = board[cx + 1][cy] = board[cx][cy - 1] = ++tile; // 放置一个向右下方延伸的 L 形板
     }
+    else if (board[x1][y1] == 0 && x1 <= cx && y1 > cy) // 左边子棋盘的残缺位置在中心位置的右上方
+    {
+        board[cx][cy] = board[cx + 1][cy] = board[cx + 1][cy - 1] = ++tile; // 放置一个向左下方延伸的 L 形板
+    }
+    else if (board[x1][y1] == 0 && x1 > cx && y1 <= cy) // 左边子棋盘的残缺位置在中心位置的左下方
+    {
+        board[cx][cy] = board[cx][cy - 1] = board[cx + 1][cy - 1] = ++tile; // 放置一个向右上方延伸的 L 形板
+    }
+    else // 左边子棋盘的残缺位置在中心位置的右下方
+    {
+        board[cx][cy] = board[cx + 1][cy] = board[cx][cy - 1] = ++tile; // 放置一个向左上方延伸的 L 形板
+    }
+    fillBoard(board, k - 1, x, y, tile); // 对左上角的小子棋盘递归调用
+    fillBoard(board, k - 1, x, y + (1 << (k - 1)), tile); // 对右上角的小子棋盘递归调用
+    fillBoard(board, k - 1, x + (1 << (k - 1)), y, tile); // 对左下角的小子棋盘递归调用
+    fillBoard(board, k - 1, x + (1 << (k - 1)), y + (1 << (k - 1)), tile); // 对右下角的小子棋盘递归调用
 }
+
+void fillBoard2(vector<vector<int>> &board, int k, int x, int y, int &tile)
+{
+    int x2 = x, y2 = y;
+
+    if (k == 0) return;
+    int cx = x + (1 << (k - 1));     // 中心位置横坐标
+    int cy = y + (1 << (k - 1)) - 1; // 中心位置纵坐标
+    if (board[x2][y2] == 0 && x2 <= cx && y2 <= cy) // 右边子棋盘的残缺位置在中心位置的左上方
+    {
+        board[cx][cy] = board[cx - 1][cy] = board[cx][cy + 1] = ++tile; // 放置一个向右下方延伸的 L 形板
+    }
+    else if (board[x2][y2] == 0 && x2 <= cx && y2 > cy) // 右边子棋盘的残缺位置在中心位置的右上方
+    {
+        board[cx][cy] = board[cx - 1][cy] = board[cx - 1][cy + 1] = ++tile; // 放置一个向左下方延伸的 L 形板
+    }
+    else if (board[x2][y2] == 0 && x2 > cx && y2 <= cy) // 右边子棋盘的残缺位置在中心位置的左下方
+    {
+        board[cx][cy] = board[cx][cy + 1] = board[cx - 1][cy + 1] = ++tile; // 放置一个向右上方延伸的 L 形板
+    }
+    else // 右边子棋盘的残缺位置在中心位置的右下方
+    {
+        board[cx][cy] = board[cx - 1][cy] = board[cx][cy + 1] = ++tile; // 放置一个向左上方延伸的 L 形板
+    }
+    fillBoard2(board, k - 1, x, y, tile); // 对左上角的小子棋盘递归调用
+    fillBoard2(board, k - 1, x, y + (1 << (k - 1)), tile); // 对右上角的小子棋盘递归调用
+    fillBoard2(board, k - 1, x + (1 << (k - 1)), y, tile); // 对左下角的小子棋盘递归调用
+    fillBoard2(board, k - 1, x + (1 << (k - 1)), y + (1 << (k - 1)), tile); // 对右下角的小子棋盘递归调用
+}
+
 int main()
 {
-    cin >> k >> x1 >> y1 >> x2 >> y2;
+    int k;
+    cin >> k;
+    int x1, y1, x2, y2;
+    cin >> x1 >> y1 >> x2 >> y2;
     int n = (1 << k);
-    solve(0, 0, n);
+    vector<vector<int>> board(n, vector<int>(n * 2));
+    board[x1 - 1][y1 - 1] = board[x2 - 1][y2 + n - 1] = 0; // 标记残缺位置为0，注意坐标从0开始，所以要减一
+    int tile = 0; // 记录放置的L形板的编号
+    fillBoard(board, k, 0, 0, tile); // 填充左边子棋盘
+    fillBoard2(board, k, 0, n, tile); // 填充右边子棋盘
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < n * 2; j++)
         {
-            cout << a[i][j];
+            cout << board[i][j] << " ";
         }
         cout << endl;
     }
-    return 0;
 }
