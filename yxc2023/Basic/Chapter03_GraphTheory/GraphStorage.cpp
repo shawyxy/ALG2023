@@ -1,15 +1,15 @@
-
-int head[N], ver[M], edge[M], Next[M], count;
+const N = 100010, M = N * 2; // 无向图需要两条有向边
+int head[N], ver[M], edge[M], Next[M], idx;
 
 // 插入一条从 x 到 y 长度为 z 的有向边
 void add(int x, int y, int z)
 {
-    count++;
-    ver[count] = y;
-    edge[count] = z;
+    idx++;
+    ver[idx] = y;
+    edge[idx] = z;
     // 头插
-    Next[count] = head[x];
-    head[x] = count;
+    Next[idx] = head[x];
+    head[x] = idx;
 }
 
 // 读入一条有向边
@@ -30,4 +30,4 @@ for (int i = head[x]; i != 0; i = Next[i])
 
 // 清零只需要处理链表和计数器
 memset(head, 0, sizeof(head));
-count = 0;
+idx = 0;
