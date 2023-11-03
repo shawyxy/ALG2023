@@ -58,7 +58,7 @@ int main()
 	}
 	if (n == 1) // 处理n为1的特殊情况
 	{
-		cout << 1 << endl;
+		// cout << 1 << endl;
 		cout << 1 << endl;
 		return 0;
 	}
