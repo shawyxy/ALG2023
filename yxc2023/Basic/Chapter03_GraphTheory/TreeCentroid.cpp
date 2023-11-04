@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <algorithm>
-#include <vector> // 添加了向量的头文件
+#include <vector>
 using namespace std;
 
 const int N = 100010, M = N * 2;
