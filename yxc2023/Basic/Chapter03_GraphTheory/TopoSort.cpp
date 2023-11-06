@@ -1,24 +1,23 @@
 #include <iostream>
 #include <queue>
-#include <cstring>
-#include <algorithm>
-
 using namespace std;
 
 const int N = 100010;
 int n, m;
 int in[N];
 vector<int> ver[N], topo;
-queue<int> q;
 
 bool TopoSort()
 {
+	queue<int> q;
+
 	for (int i = 1; i <= n; i++)
 		if (in[i] == 0) q.push(i);
 
 	while (!q.empty())
 	{
-		int x = q.front();
+
+		int x = q.top();
 		q.pop();
 		topo.push_back(x);
 
@@ -40,7 +39,12 @@ int main()
 		in[b]++;
 	}
 	if (!TopoSort()) puts("-1");
-	else for (auto &e : topo) printf("%d ", e);
+	else 
+	{
+		for (int i = 0; i < topo.size() - 1; i++) printf("%d ", topo[i]);
+
+		cout << topo[topo.size() - 1];
+	}
 
 	return 0;
 }
