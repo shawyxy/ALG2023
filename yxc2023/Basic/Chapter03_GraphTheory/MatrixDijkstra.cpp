@@ -6,7 +6,7 @@ using namespace std;
 int n, m, s;
 const int N = 10010, INF = 1e9, M = 2 * N;
 int gra[N][N], dist[M];
-bool visited[M];
+bool visited[N];
 
 void dijkstra(int s)
 {

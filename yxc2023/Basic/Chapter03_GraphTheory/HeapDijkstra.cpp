@@ -5,10 +5,10 @@
 using namespace std;
 
 int n, m, s;
-const int N = 100010, INF = 1e9, M = 2 * N;
-int dist[M];
+const int N = 100010, M = N * 2;
 int head[N], ver[M], edge[M], Next[M], idx;
-bool visited[M];
+int dist[N];
+bool visited[N];
 
 // pair<-dist[x], x>
 priority_queue<pair<int, int>> heap;
@@ -32,6 +32,7 @@ void dijkstra(int s)
 	while (!heap.empty())
 	{
 		int x = heap.top().second;
+		heap.pop();
 		if (visited[x]) continue;
 		visited[x] = true;
 
@@ -52,12 +53,12 @@ void dijkstra(int s)
 int main()
 {
 	cin >> n >> m >> s; // 读入点数/边数/起点
-	for (int i = 1; i <= m; i++)
+	for (int i = 0; i < m; i++)
 	{
 		int x, y, z;
 		cin >> x >> y >> z;
 		add(x, y, z);
-	}
+	}	
 	dijkstra(s);
 	return 0;
 }
