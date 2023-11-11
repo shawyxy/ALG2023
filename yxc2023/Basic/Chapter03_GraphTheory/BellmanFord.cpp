@@ -44,7 +44,8 @@ void BellmanFord(int s) // s是起点
 				}
 			}
 		}
-		if (!relax) break; // 松弛失败,说明
+		// 如果没有任何松弛操作发生,就提前结束循环,因为已经找到了最优解
+		if (!relax) break;
 	}
 	// 第n轮循环松弛失败,说明有环
 	if (relax == false) cout << "NO" << endl;
