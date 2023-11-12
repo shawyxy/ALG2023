@@ -8,7 +8,7 @@ int n, m, s;
 const int N = 100010, M = N * 2;
 int head[N], ver[M], edge[M], Next[M], idx;
 int dist[N];
-bool visited[N];
+bool visited[N]; // 标记x顶点是否是第一次出队
 
 // pair<-dist[x], x>
 priority_queue<pair<int, int>> heap;
